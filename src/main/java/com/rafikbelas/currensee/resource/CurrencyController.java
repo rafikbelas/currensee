@@ -1,5 +1,6 @@
 package com.rafikbelas.currensee.resource;
 
+import com.rafikbelas.currensee.dto.ConversionRateDTO;
 import com.rafikbelas.currensee.dto.CurrencyRateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +25,9 @@ public class CurrencyController {
     private RestTemplate restTemplate;
 
     @GetMapping("/convert")
-    CurrencyRateDTO convert(@RequestParam String to, @RequestParam("api_key") String apiKey) {
+    ConversionRateDTO convert(@RequestParam String to,
+                            @RequestParam double amount,
+                            @RequestParam("api_key") String apiKey) {
 
         String url = endpoint
                 + "?access_key=" + apiKey
@@ -37,6 +40,11 @@ public class CurrencyController {
                 CurrencyRateDTO.class
         );
 
-        return response;
+        String key = FROM + to;
+        Double rate = response.getQuotes().get(key);
+
+        ConversionRateDTO result = new ConversionRateDTO(FROM, to, amount, rate);
+
+        return result;
     }
 }
