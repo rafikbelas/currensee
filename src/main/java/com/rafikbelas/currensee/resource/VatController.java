@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/vat")
-public class VATController {
+public class VatController {
 
     @Autowired
     VatService vatService;
