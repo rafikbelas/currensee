@@ -20,7 +20,7 @@ public class VatServiceImpl implements VatService {
         if (result.isIsValid())
             return result.getCountryCode();
         else
-            throw new InvalidVatException("VAT Not Found");
+            throw new InvalidVatException("Invalid VAT");
 
     }
 
