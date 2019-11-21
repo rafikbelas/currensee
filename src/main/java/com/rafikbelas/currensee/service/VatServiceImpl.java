@@ -14,7 +14,17 @@ import java.util.NoSuchElementException;
 @Service
 public class VatServiceImpl implements VatService {
     @Override
-    public String getCountryCode(String vat, String apiKey) {
+    public String getCountryCode(String vat, String apiKey) throws ApiException {
+        VatLookupResponse result = getVatLookupResponse(vat, apiKey);
+
+        if (result.isIsValid())
+            return result.getCountryCode();
+        else
+            throw new NoSuchElementException("VAT Not Found");
+
+    }
+
+    private VatLookupResponse getVatLookupResponse(String vat, String apiKey) throws ApiException {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         ApiKeyAuth Apikey = (ApiKeyAuth) defaultClient.getAuthentication("Apikey");
@@ -23,17 +33,6 @@ public class VatServiceImpl implements VatService {
         VatApi apiInstance = new VatApi();
         VatLookupRequest input = new VatLookupRequest().vatCode(vat);
 
-        try {
-            VatLookupResponse result = apiInstance.vatVatLookup(input);
-            if (result.isIsValid())
-                return result.getCountryCode();
-            else
-                throw new NoSuchElementException("VAT Not Found");
-        } catch (ApiException e) {
-            System.err.println("Exception when calling VatApi#vatVatLookup");
-            e.printStackTrace();
-        }
-
-        return null;
+        return apiInstance.vatVatLookup(input);
     }
 }
