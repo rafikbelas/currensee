@@ -1,46 +1,34 @@
 package com.rafikbelas.currensee.resource;
 
 import com.rafikbelas.currensee.dto.ConversionRateDTO;
-import com.rafikbelas.currensee.dto.CurrencyRateDTO;
+import com.rafikbelas.currensee.service.CurrencyLayerService;
 import com.rafikbelas.currensee.validator.CurrencyCodeConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/currency")
 @PropertySource("currencylayer.properties")
 @Validated
 public class CurrencyController {
-
-    @Value("${currencylayer.api.endpoint}")
-    private String endpoint;
-
-    private static final String FROM = "USD";
+    public static final String FROM = "USD";
 
     @Autowired
-    private RestTemplate restTemplate;
+    private CurrencyLayerService currencyLayerService;
 
     @GetMapping("/convert")
     ConversionRateDTO convert(@RequestParam("to") @CurrencyCodeConstraint String to,
                               @RequestParam("amount") double amount,
                               @RequestParam("api_key") String apiKey) {
 
-        String url = endpoint + "?access_key=" + apiKey + "&currencies=" + to + "&source=" + FROM + "&format=1";
+        Double rate = currencyLayerService.getaRate(FROM, to, apiKey);
 
-        CurrencyRateDTO response = restTemplate.getForObject(url, CurrencyRateDTO.class);
+        return new ConversionRateDTO(FROM, to, amount, rate);
 
-        String key = FROM + to;
-        Double rate = response.getQuotes().get(key);
-
-        ConversionRateDTO result = new ConversionRateDTO(FROM, to, amount, rate);
-
-        return result;
     }
 }

@@ -9,8 +9,7 @@ import java.util.AbstractMap;
 
 @Getter
 @Setter
-@Data
-public class CurrencyRateDTO {
+public class CurrencyRate {
 
     private boolean success;
     private String source;
