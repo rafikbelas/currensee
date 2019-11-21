@@ -7,20 +7,20 @@ import com.cloudmersive.client.invoker.Configuration;
 import com.cloudmersive.client.invoker.auth.ApiKeyAuth;
 import com.cloudmersive.client.model.VatLookupRequest;
 import com.cloudmersive.client.model.VatLookupResponse;
+import com.rafikbelas.currensee.exception.InvalidVatException;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 
 @Service
 public class VatServiceImpl implements VatService {
     @Override
-    public String getCountryCode(String vat, String apiKey) throws ApiException {
+    public String getCountryCode(String vat, String apiKey) throws ApiException, InvalidVatException {
         VatLookupResponse result = getVatLookupResponse(vat, apiKey);
 
         if (result.isIsValid())
             return result.getCountryCode();
         else
-            throw new NoSuchElementException("VAT Not Found");
+            throw new InvalidVatException("VAT Not Found");
 
     }
 

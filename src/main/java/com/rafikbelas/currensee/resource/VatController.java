@@ -1,5 +1,6 @@
 package com.rafikbelas.currensee.resource;
 
+import com.cloudmersive.client.invoker.ApiException;
 import com.rafikbelas.currensee.dto.VatResultDTO;
 import com.rafikbelas.currensee.service.VatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class VatController {
 
     @GetMapping("/verify")
     VatResultDTO verify(@RequestParam("VAT") String vat,
-                  @RequestParam("api_key") String apiKey) {
+                  @RequestParam("api_key") String apiKey) throws ApiException {
 
         String countryCode = vatService.getCountryCode(vat, apiKey);
         return new VatResultDTO(countryCode);
