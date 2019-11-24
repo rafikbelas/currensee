@@ -1,7 +1,6 @@
 package com.rafikbelas.currensee.exception;
 
 import com.cloudmersive.client.invoker.ApiException;
-import io.swagger.annotations.Api;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
