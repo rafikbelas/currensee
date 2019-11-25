@@ -1,4 +1,4 @@
-package com.rafikbelas.currensee.resource;
+package com.rafikbelas.currensee.controller;
 
 import com.cloudmersive.client.invoker.ApiException;
 import com.rafikbelas.currensee.dto.VatResultDTO;

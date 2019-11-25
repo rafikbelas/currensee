@@ -1,4 +1,4 @@
-package com.rafikbelas.currensee.resource;
+package com.rafikbelas.currensee.controller;
 
 import com.rafikbelas.currensee.dto.ConversionRateDTO;
 import com.rafikbelas.currensee.service.CurrencyService;

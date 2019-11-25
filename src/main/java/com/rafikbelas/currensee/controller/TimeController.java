@@ -1,4 +1,4 @@
-package com.rafikbelas.currensee.resource;
+package com.rafikbelas.currensee.controller;
 
 import com.rafikbelas.currensee.dto.TimeDTO;
 import org.springframework.web.bind.annotation.GetMapping;
