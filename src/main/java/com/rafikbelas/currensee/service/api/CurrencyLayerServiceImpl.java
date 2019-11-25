@@ -4,10 +4,12 @@ import com.rafikbelas.currensee.dto.CurrencyRate;
 import com.rafikbelas.currensee.exception.CurrencyLayerApiException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@PropertySource("classpath:currencylayer.properties")
 public class CurrencyLayerServiceImpl implements CurrencyLayerService {
 
     @Autowired

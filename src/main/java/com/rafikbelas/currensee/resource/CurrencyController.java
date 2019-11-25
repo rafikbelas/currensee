@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/currency")
-@PropertySource("currencylayer.properties")
 @Validated
 public class CurrencyController {
     public static final String FROM = "USD";
