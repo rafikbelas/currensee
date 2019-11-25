@@ -24,7 +24,8 @@ public class CloudMersiveServiceImpl implements CloudMersiveService {
             throw new InvalidVatException("Invalid VAT");
     }
 
-    private VatLookupResponse getVatLookupResponse(String vat, String apiKey) {
+    @Override
+    public VatLookupResponse getVatLookupResponse(String vat, String apiKey) {
         ApiClient defaultClient = Configuration.getDefaultApiClient();
 
         ApiKeyAuth Apikey = (ApiKeyAuth) defaultClient.getAuthentication("Apikey");
