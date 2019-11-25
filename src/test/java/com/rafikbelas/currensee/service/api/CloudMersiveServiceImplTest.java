@@ -1,6 +1,8 @@
 package com.rafikbelas.currensee.service.api;
 
 import com.cloudmersive.client.model.VatLookupResponse;
+import com.rafikbelas.currensee.exception.CloudMersiveApiException;
+import com.rafikbelas.currensee.exception.ExternalApiException;
 import com.rafikbelas.currensee.exception.InvalidVatException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +50,14 @@ class CloudMersiveServiceImplTest {
         verify(cloudMersiveService, times(1))
                 .getVatLookupResponse(nullable(String.class), nullable(String.class));
 
+    }
+
+    @Test
+    void getCountryCode_whenApiCallFails() {
+        doThrow(CloudMersiveApiException.class)
+                .when(cloudMersiveService).getVatLookupResponse(nullable(String.class), nullable(String.class));
+
+        assertThrows(ExternalApiException.class, () -> cloudMersiveService.getCountryCode(anyString(), anyString()));
     }
 
 }
