@@ -1,5 +1,8 @@
 package com.rafikbelas.currensee.service;
 
+import com.rafikbelas.currensee.exception.CurrencyLayerApiException;
+import com.rafikbelas.currensee.exception.ExternalApiException;
+import com.rafikbelas.currensee.exception.InvalidVatException;
 import com.rafikbelas.currensee.service.api.CurrencyLayerService;
 import com.rafikbelas.currensee.service.api.CurrencyLayerServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -13,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
@@ -35,8 +39,18 @@ class CurrencyServiceImplTest {
 
         final Double result = currencyService.getRate(anyString(), anyString(), anyString());
 
-        verify(currencyLayerService, times(1)).getRate(anyString(), anyString(), anyString());
         assertThat(result).isEqualTo(rate);
+        verify(currencyLayerService, times(1)).getRate(anyString(), anyString(), anyString());
+
+    }
+
+    @Test
+    void getRate_whenServiceThrowsExternalApiException() {
+        doThrow(CurrencyLayerApiException.class)
+                .when(currencyLayerService).getRate(anyString(), anyString(), anyString());
+
+        assertThrows(ExternalApiException.class, () -> currencyService.getRate(anyString(), anyString(), anyString()));
+        verify(currencyLayerService, times(1)).getRate(anyString(), anyString(), anyString());
 
     }
 }
