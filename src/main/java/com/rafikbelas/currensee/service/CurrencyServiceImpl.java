@@ -11,7 +11,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     CurrencyLayerService currencyLayerService;
 
     @Override
-    public double getaRate(String from, String to, String apiKey) {
+    public double getRate(String from, String to, String apiKey) {
         return currencyLayerService.getRate(from, to, apiKey);
     }
 
