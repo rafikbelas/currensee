@@ -1,7 +1,7 @@
 package com.rafikbelas.currensee.resource;
 
 import com.rafikbelas.currensee.dto.ConversionRateDTO;
-import com.rafikbelas.currensee.service.CurrencyLayerService;
+import com.rafikbelas.currensee.service.CurrencyService;
 import com.rafikbelas.currensee.validator.CurrencyCodeConstraint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
@@ -19,15 +19,14 @@ public class CurrencyController {
     public static final String FROM = "USD";
 
     @Autowired
-    private CurrencyLayerService currencyLayerService;
+    private CurrencyService currencyService;
 
     @GetMapping("/convert")
     ConversionRateDTO convert(@RequestParam("to") @CurrencyCodeConstraint String to,
                               @RequestParam("amount") double amount,
                               @RequestParam("api_key") String apiKey) {
 
-        Double rate = currencyLayerService.getaRate(FROM, to, apiKey);
-
+        double rate = currencyService.getaRate(FROM, to, apiKey);
         return new ConversionRateDTO(FROM, to, amount, rate);
 
     }

@@ -1,6 +1,5 @@
 package com.rafikbelas.currensee.exception;
 
-import com.cloudmersive.client.invoker.ApiException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,9 +53,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return apiError;
     }
 
-    @ExceptionHandler(ApiException.class)
+    @ExceptionHandler(ExternalApiException.class)
     @ResponseStatus(INTERNAL_SERVER_ERROR)
-    public ApiError handeApiException(ApiException ex) {
+    public ApiError handeApiException(ExternalApiException ex) {
         return new ApiError(INTERNAL_SERVER_ERROR, UNEXPECTED_ERROR);
     }
 
