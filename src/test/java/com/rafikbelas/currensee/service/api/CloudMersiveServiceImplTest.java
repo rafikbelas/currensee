@@ -27,8 +27,8 @@ class CloudMersiveServiceImplTest {
         String vat = "CZ123123";
         String countryCode = "CZ";
 
-        doReturn(new VatLookupResponse().isValid(true).countryCode(countryCode).vatNumber(vat))
-                .when(cloudMersiveService).getVatLookupResponse(nullable(String.class), nullable(String.class));
+        VatLookupResponse response = new VatLookupResponse().isValid(true).countryCode(countryCode).vatNumber(vat);
+        doReturn(response).when(cloudMersiveService).getVatLookupResponse(nullable(String.class), nullable(String.class));
 
         String result = cloudMersiveService.getCountryCode(eq(vat), anyString());
 
@@ -39,12 +39,11 @@ class CloudMersiveServiceImplTest {
 
     @Test
     void getCountryCode_whenEnteredVatIsNotValid() {
-
         String vat = "SS123123";
         String countryCode = "SS";
 
-        doReturn(new VatLookupResponse().isValid(false).countryCode(countryCode).vatNumber(vat))
-                .when(cloudMersiveService).getVatLookupResponse(nullable(String.class), nullable(String.class));
+        VatLookupResponse response = new VatLookupResponse().isValid(false).countryCode(countryCode).vatNumber(vat);
+        doReturn(response).when(cloudMersiveService).getVatLookupResponse(nullable(String.class), nullable(String.class));
 
         assertThrows(InvalidVatException.class, () -> cloudMersiveService.getCountryCode(eq(vat), anyString()));
         verify(cloudMersiveService, times(1))
