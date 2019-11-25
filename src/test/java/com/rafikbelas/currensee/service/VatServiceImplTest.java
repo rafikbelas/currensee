@@ -3,6 +3,7 @@ package com.rafikbelas.currensee.service;
 import com.rafikbelas.currensee.exception.CloudMersiveApiException;
 import com.rafikbelas.currensee.exception.CurrencyLayerApiException;
 import com.rafikbelas.currensee.exception.ExternalApiException;
+import com.rafikbelas.currensee.exception.InvalidVatException;
 import com.rafikbelas.currensee.service.api.CloudMersiveService;
 import com.rafikbelas.currensee.service.api.CloudMersiveServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -49,5 +50,14 @@ class VatServiceImplTest {
         assertThrows(ExternalApiException.class, () -> vatService.getCountryCode(anyString(), anyString()));
         verify(cloudMersiveService, times(1)).getCountryCode(anyString(), anyString());
 
+    }
+
+    @Test
+    void getRate_whenServiceThrowsVatNotValidException() {
+        doThrow(InvalidVatException.class)
+                .when(cloudMersiveService).getCountryCode(anyString(), anyString());
+
+        assertThrows(InvalidVatException.class, () -> vatService.getCountryCode(anyString(), anyString()));
+        verify(cloudMersiveService, times(1)).getCountryCode(anyString(), anyString());
     }
 }
