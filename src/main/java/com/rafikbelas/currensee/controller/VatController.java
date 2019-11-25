@@ -18,7 +18,7 @@ public class VatController {
 
     @GetMapping("/verify")
     VatResultDTO verify(@RequestParam("VAT") String vat,
-                        @RequestParam("api_key") String apiKey) throws ApiException {
+                        @RequestParam("api_key") String apiKey) {
 
         String countryCode = vatService.getCountryCode(vat, apiKey);
         return new VatResultDTO(countryCode);
