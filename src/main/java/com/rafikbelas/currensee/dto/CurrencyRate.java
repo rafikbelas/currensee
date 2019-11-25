@@ -11,7 +11,5 @@ import java.util.AbstractMap;
 public class CurrencyRate {
 
     private boolean success;
-    private String source;
-    private Timestamp timestamp;
     private AbstractMap<String, Double> quotes;
 }
