@@ -1,5 +1,6 @@
 package com.rafikbelas.currensee.exception;
 
+import com.rafikbelas.currensee.dto.ApiError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

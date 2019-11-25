@@ -1,4 +1,4 @@
-package com.rafikbelas.currensee.exception;
+package com.rafikbelas.currensee.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

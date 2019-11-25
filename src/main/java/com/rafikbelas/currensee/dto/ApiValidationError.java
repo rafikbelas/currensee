@@ -1,4 +1,4 @@
-package com.rafikbelas.currensee.exception;
+package com.rafikbelas.currensee.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
