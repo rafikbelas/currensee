@@ -1,7 +1,10 @@
 package com.rafikbelas.currensee.service.api;
 
 import com.rafikbelas.currensee.dto.CurrencyRate;
+import com.rafikbelas.currensee.exception.CloudMersiveApiException;
+import com.rafikbelas.currensee.exception.ExternalApiException;
 import com.rafikbelas.currensee.service.CurrencyServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,8 +21,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,12 +37,18 @@ class CurrencyLayerServiceImplTest {
     @MockBean
     RestTemplate restTemplate;
 
+    String from = "USD";
+    String to = "EUR";
+    String apiKey = "API_KEY";
+    Double rate;
+
+    @BeforeEach
+    void init() {
+        rate = new Random().nextDouble() * 100;
+    }
+
     @Test
     void getRate() {
-        String from = "USD";
-        String to = "EUR";
-        String apiKey = "API_KEY";
-        Double rate = new Random().nextDouble() * 100;
 
         AbstractMap quotes = new HashMap();
         quotes.put(from+to, rate);
@@ -51,5 +62,12 @@ class CurrencyLayerServiceImplTest {
 
     }
 
+    @Test
+    void getRate_shouldReturnBadRequestIfApiCallFails() {
 
+        doThrow(CloudMersiveApiException.class)
+                .when(currencyLayerService).getCurrencyRate(from, to, apiKey);
+
+        assertThrows(ExternalApiException.class, () -> currencyLayerService.getRate(from, to, apiKey));
+    }
 }

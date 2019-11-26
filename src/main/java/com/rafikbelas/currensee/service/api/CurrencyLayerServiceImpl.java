@@ -19,7 +19,7 @@ public class CurrencyLayerServiceImpl implements CurrencyLayerService {
     private String endpoint;
 
     @Override
-    public double getRate(String from, String to, String apiKey) throws CurrencyLayerApiException {
+    public double getRate(String from, String to, String apiKey) {
         CurrencyRate response = getCurrencyRate(from, to, apiKey);
 
         if (response.isSuccess()) {
