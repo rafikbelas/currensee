@@ -20,15 +20,19 @@ public class CurrencyLayerServiceImpl implements CurrencyLayerService {
 
     @Override
     public double getRate(String from, String to, String apiKey) throws CurrencyLayerApiException {
+        CurrencyRate response = getCurrencyRate(from, to, apiKey);
 
-        String url = endpoint + "?access_key=" + apiKey + "&currencies=" + to + "&source=" + from + "&format=1";
-        CurrencyRate response = restTemplate.getForObject(url, CurrencyRate.class);
         if (response.isSuccess()) {
             return response.getQuotes().get(from + to);
         } else {
             throw new CurrencyLayerApiException("CurrencyLayer API error.");
         }
+    }
 
+    @Override
+    public CurrencyRate getCurrencyRate(String from, String to, String apiKey) {
+        String url = endpoint + "?access_key=" + apiKey + "&currencies=" + to + "&source=" + from + "&format=1";
+        return restTemplate.getForObject(url, CurrencyRate.class);
     }
 }
 
