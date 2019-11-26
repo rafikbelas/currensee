@@ -72,7 +72,6 @@ class CurrencyControllerTest {
     void convert_returnsBadRequestIfArgumentIsMissing() throws Exception {
 
         mockMvc.perform(get(urlTemplate))
-                .andDo(print())
                 .andExpect(status().isBadRequest());
     }
 }
