@@ -1,13 +1,14 @@
 package com.rafikbelas.currensee.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Timestamp;
 import java.util.AbstractMap;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class CurrencyRate {
 
     private boolean success;
