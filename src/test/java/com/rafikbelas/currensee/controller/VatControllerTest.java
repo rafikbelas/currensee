@@ -36,7 +36,7 @@ class VatControllerTest {
         doReturn(countryCode).when(vatService).getCountryCode(vat, apiKey);
 
         mockMvc.perform(get(urlTemplate)
-                .param("VAT", vat)
+                .param("vat", vat)
                 .param("api_key", apiKey))
                 .andDo(print())
                 .andExpect(status().isOk())
