@@ -42,4 +42,10 @@ class VatControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("countryCode").value(countryCode));
     }
+
+    @Test
+    void verify_shouldReturnBadRequestIfParamIsMissing() throws Exception {
+        mockMvc.perform(get(urlTemplate))
+                .andExpect(status().isBadRequest());
+    }
 }
