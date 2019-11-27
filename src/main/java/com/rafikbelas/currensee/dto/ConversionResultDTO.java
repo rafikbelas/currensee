@@ -10,17 +10,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @ApiModel(value = "ConversionResult", description = "The result of the conversion from USD to target currency")
-public class ConversionRateDTO {
+public class ConversionResultDTO {
 
-    @ApiModelProperty(notes = "${ConversionRateDTO.from}")
+    @ApiModelProperty(notes = "${ConversionResultDTO.from}")
     private String from;
-    @ApiModelProperty(notes = "${ConversionRateDTO.to}")
+    @ApiModelProperty(notes = "${ConversionResultDTO.to}")
     private String to;
-    @ApiModelProperty(notes = "${ConversionRateDTO.amount}")
+    @ApiModelProperty(notes = "${ConversionResultDTO.amount}")
     @JsonProperty("amount")
     private double convertedAmount;
 
-    public ConversionRateDTO(String from, String to, double amount, double rate) {
+    public ConversionResultDTO(String from, String to, double amount, double rate) {
         this.from = from;
         this.to = to;
         this.convertedAmount = amount * rate;

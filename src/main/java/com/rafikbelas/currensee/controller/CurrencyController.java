@@ -1,6 +1,6 @@
 package com.rafikbelas.currensee.controller;
 
-import com.rafikbelas.currensee.dto.ConversionRateDTO;
+import com.rafikbelas.currensee.dto.ConversionResultDTO;
 import com.rafikbelas.currensee.service.CurrencyService;
 import com.rafikbelas.currensee.validator.CurrencyCodeConstraint;
 import io.swagger.annotations.Api;
@@ -23,17 +23,17 @@ public class CurrencyController {
     @Autowired
     private CurrencyService currencyService;
 
-    @ApiOperation(value = "${CurrencyController.convert.description}", response = ConversionRateDTO.class)
+    @ApiOperation(value = "${CurrencyController.convert.description}", response = ConversionResultDTO.class)
     @GetMapping("/convert")
-    ConversionRateDTO convert(@ApiParam(value = "${CurrencyController.convert.to}", required = true, example = "EUR")
+    ConversionResultDTO convert(@ApiParam(value = "${CurrencyController.convert.to}", required = true, example = "EUR")
                               @RequestParam @CurrencyCodeConstraint String to,
-                              @ApiParam(value = "${CurrencyController.convert.amount}", required = true, example = "100.50")
+                                @ApiParam(value = "${CurrencyController.convert.amount}", required = true, example = "100.50")
                               @RequestParam double amount,
-                              @ApiParam(value = "${CurrencyController.convert.apiKey}", required = true)
+                                @ApiParam(value = "${CurrencyController.convert.apiKey}", required = true)
                               @RequestParam("api_key") String apiKey) {
 
         double rate = currencyService.getRate(FROM, to, apiKey);
-        return new ConversionRateDTO(FROM, to, amount, rate);
+        return new ConversionResultDTO(FROM, to, amount, rate);
 
     }
 }
