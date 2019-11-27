@@ -25,12 +25,12 @@ public class CurrencyController {
 
     @ApiOperation(value = "${CurrencyController.convert.description}", response = ConversionResultDTO.class)
     @GetMapping("/convert")
-    ConversionResultDTO convert(@ApiParam(value = "${CurrencyController.convert.to}", required = true, example = "EUR")
-                              @RequestParam @CurrencyCodeConstraint String to,
-                                @ApiParam(value = "${CurrencyController.convert.amount}", required = true, example = "100.50")
-                              @RequestParam double amount,
-                                @ApiParam(value = "${CurrencyController.convert.apiKey}", required = true)
-                              @RequestParam("api_key") String apiKey) {
+    ConversionResultDTO convert(@ApiParam(value = "${CurrencyController.convert.to.description}", required = true, example = "EUR")
+                                @RequestParam @CurrencyCodeConstraint String to,
+                                @ApiParam(value = "${CurrencyController.convert.amount.description}", required = true, example = "80.00")
+                                @RequestParam double amount,
+                                @ApiParam(value = "${CurrencyController.convert.apiKey.description}", required = true)
+                                @RequestParam("api_key") String apiKey) {
 
         double rate = currencyService.getRate(FROM, to, apiKey);
         return new ConversionResultDTO(FROM, to, amount, rate);
