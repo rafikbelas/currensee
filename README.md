@@ -44,9 +44,11 @@ You can either run the application by building, testing and running the project 
 
 <a name="compose"><a/>
 ####3.2. Run using docker-compose
+**Prerequisites:** `docker` `docker-compose`
 
 <a name="hub"><a/>
 ####3.3. Run the Docker image from DockerHub
+**Prerequisites:** `docker`
 - Run the following command 
 `docker run -dp 8081:8081 rafikbelas/currensee`. This will download the `currensee` image from the DockerHub and run it.
 - To test the API endpoints, head to the auto-generated [Swagger documentation][currensee-docs]
