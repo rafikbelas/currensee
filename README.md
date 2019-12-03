@@ -7,6 +7,7 @@
 3.1 [Build - test - package from the source code](#source)
 3.2 [Run using docker or docker-compose](#docker)
 3.3 [Run the Docker image from DockerHub](#hub)
+4. [About the code](#code)
 
 <a name="introduction"><a/>
 ###1. Introduction
@@ -60,3 +61,31 @@ You can either run the application by building, testing and running the project 
 [currencylayer]: https://currencylayer.com
 [currencylayer-api]: https://currencylayer.com/documentation#real_time_rates
 [currensee-docs]: http://localhost:8081/api/swagger-ui.html
+
+<a name="code"></a>
+####4. About the code
+#####Project packages:
+- `controller` : entry-point of each API. calls the appropriate `service(s)` with the received parameters and returns the corresponding response.
+- `service` : Services that hold the business logic, independently from external APIs, in case those are changed. Eventually calls other services in the `service > api` related to an external API.
+- `service > api`: Services that call external APIs, separated from business logic.
+- `dto`: Object responses returned by controller or received by external services.
+- `validator`: Custom validators
+- `configuration` : Custom configuration
+- `exception`: Custom exceptions and a `GlobalExceptionHandler` to handle all exepctions thrown by the `controller`.
+
+#####External APIs:
+The external APIs used are `CurrencyLayer` and `CloudMersive`.
+The `CloudMersive` API provides a ready SDK that was used in the service to call the API.
+
+#####Error responses:
+The `GlobalExceptionHandler` provides exception handling to each error thrown by the controller and returns a custom response with 
+- `status`
+- `message`
+- `timestamp`
+- `debug message` (Optional)
+- `subErrors` (Optional): list of fields that cause the error.
+    * `field`
+    * `rejecteValue`
+    * `message`
+
+Errors regarding the external APIs and API Keys are returned as `INTERNAL_SERVER_ERROR` for now.
