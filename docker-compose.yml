@@ -1,0 +1,11 @@
+version: "3.7"
+
+services:
+  currensee-app:
+    container_name: currensee_app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: currensee:latest
+    ports:
+      - 8081:8081
