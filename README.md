@@ -1,11 +1,11 @@
-# Currsnee - API Documentation
+# Currensee - API Documentation
 
 ###Table of Contents
 1. [Introduction](#introduction)
 2. [What's in the project](#about)
 3. [Running the application](#running)
 3.1 [Build - test - package from the source code](#source)
-3.2 [Run using docker-compose](#compose)
+3.2 [Run using docker or docker-compose](#docker)
 3.3 [Run the Docker image from DockerHub](#hub)
 
 <a name="introduction"><a/>
@@ -29,22 +29,26 @@ This project is a microservice that serves the following API endpoints:
    
 <a name="running"><a/>
 ###3. Running the application
-
-You can either run the application by building, testing and running the project from the source code, or use the Docker image provided on DockerHub to run a container.
+You can either run the application by building, testing and running the project from the source code, OR spin-up a container using docker and docker-compose, OR use the Docker image provided on DockerHub to run a container.
 
 <a name="source"><a/>
 ####3.1. Build - test - package from the source code.
 **Prerequisites:** `Maven 3.6.1`, `Java 11`
-- Download souce code or clone it using `git clone https://github.com/rafikbelas/currensee.git`
+- Download source code or clone it using `git clone https://github.com/rafikbelas/currensee.git`
 - Go to the project folder `cd currensee`
 - Run the following command `mvn clean`
 - Test the application by running `mvn test`
 - Run the application by running: `mvn spring-boot:run`. This will start the application on port 8081 http://localhost:8081/api/
 - To test the API endpoints, head to the auto-generated [Swagger documentation][currensee-docs]
 
-<a name="compose"><a/>
-####3.2. Run using docker-compose
-**Prerequisites:** `docker` `docker-compose`
+<a name="docker"><a/>
+####3.2. Run using docker or docker-compose
+**Prerequisites:** `docker` or`docker-compose`
+- Download source code or clone it using `git clone https://github.com/rafikbelas/currensee.git`
+- Go to the project folder `cd currensee`
+- Option 1 (Using `docker-compose`): Run the following command `docker-compose up` or `docker-compose up -d`. This will build a new image using the and spin-up a container.
+- Option 2 (Using `docker`): Run the following commands `docker build -t currensee:latest . && docker run -dp 8081:8081 currensee`. This will build a new image if not existant and run a container from it.
+- To test the API endpoints, head to the auto-generated [Swagger documentation][currensee-docs]
 
 <a name="hub"><a/>
 ####3.3. Run the Docker image from DockerHub
