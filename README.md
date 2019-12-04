@@ -1,6 +1,6 @@
 # Currensee - API Documentation
 
-###Table of Contents
+### Table of Contents
 1. [Introduction](#introduction)
 2. [What's in the project](#about)
 3. [Running the application](#running)
@@ -10,14 +10,14 @@
 4. [About the code](#code)
 
 <a name="introduction"><a/>
-###1. Introduction
+### 1. Introduction
 This project is a microservice that serves the following API endpoints:
 - Output the current time (GMT+1).
 - Validate a VAT input and return corresponding country code.
-- Convert currency input. **Note:** The free plan of the [Currency Layer API][currencylayer] only allows to [get real-time rates from USD to desired currencies](currencylayer-api). Therefore, the `source` currency of the conversion feature is always USD.
+- Convert currency input. **Note:** The free plan of the [Currency Layer API][currencylayer] only allows to [get real-time rates from USD to desired currencies][currencylayer-api]. Therefore, the `source` currency of the conversion feature is always USD.
 
 <a name="about"></a>
-###2. What's in the project
+### 2. What's in the project
 - Source code that you can review.
 - A micro-service that you can build, test & run yourselves.
 - Documentation, where relevant.
@@ -29,11 +29,11 @@ This project is a microservice that serves the following API endpoints:
 - ~~BONUS: Incorporate embedded DB/caching for API endpoints.~~
    
 <a name="running"><a/>
-###3. Running the application
+### 3. Running the application
 You can either run the application by building, testing and running the project from the source code, OR spin-up a container using docker and docker-compose, OR use the Docker image provided on DockerHub to run a container.
 
 <a name="source"><a/>
-####3.1. Build - test - package from the source code.
+#### 3.1. Build - test - package from the source code.
 **Prerequisites:** `Maven 3.6.1`, `Java 11`
 - Download source code or clone it using `git clone https://github.com/rafikbelas/currensee.git`
 - Go to the project folder `cd currensee`
@@ -43,7 +43,7 @@ You can either run the application by building, testing and running the project 
 - To test the API endpoints, head to the auto-generated [Swagger documentation][currensee-docs]
 
 <a name="docker"><a/>
-####3.2. Run using docker or docker-compose
+#### 3.2. Run using docker or docker-compose
 **Prerequisites:** `docker` or`docker-compose`
 - Download source code or clone it using `git clone https://github.com/rafikbelas/currensee.git`
 - Go to the project folder `cd currensee`
@@ -52,7 +52,7 @@ You can either run the application by building, testing and running the project 
 - To test the API endpoints, head to the auto-generated [Swagger documentation][currensee-docs]
 
 <a name="hub"><a/>
-####3.3. Run the Docker image from DockerHub
+#### 3.3. Run the Docker image from DockerHub
 **Prerequisites:** `docker`
 - Run the following command 
 `docker run -dp 8081:8081 rafikbelas/currensee`. This will download the `currensee` image from the DockerHub and run it.
@@ -63,8 +63,8 @@ You can either run the application by building, testing and running the project 
 [currensee-docs]: http://localhost:8081/api/swagger-ui.html
 
 <a name="code"></a>
-####4. About the code
-#####Project packages:
+#### 4. About the code
+##### Project packages:
 - `controller` : entry-point of each API. calls the appropriate `service(s)` with the received parameters and returns the corresponding response.
 - `service` : Services that hold the business logic, independently from external APIs, in case those are changed. Eventually calls other services in the `service > api` related to an external API.
 - `service > api`: Services that call external APIs, separated from business logic.
@@ -73,11 +73,11 @@ You can either run the application by building, testing and running the project 
 - `configuration` : Custom configuration
 - `exception`: Custom exceptions and a `GlobalExceptionHandler` to handle all exepctions thrown by the `controller`.
 
-#####External APIs:
+##### External APIs:
 The external APIs used are `CurrencyLayer` and `CloudMersive`.
 The `CloudMersive` API provides a ready SDK that was used in the service to call the API.
 
-#####Error responses:
+##### Error responses:
 The `GlobalExceptionHandler` provides exception handling to each error thrown by the controller and returns a custom response with 
 - `status`
 - `message`
